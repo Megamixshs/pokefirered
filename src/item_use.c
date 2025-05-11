@@ -910,6 +910,29 @@ void FieldUseFunc_OakStopsYou(u8 taskId)
         PrintNotTheTimeToUseThat(taskId, gTasks[taskId].data[3]);
 }
 
+void ItemUseOutOfBattle_ExpShare(u8 taskId)
+{
+    bool8 expShareOn = FlagGet(FLAG_EXP_SHARE);
+    if (!expShareOn)
+    {
+        FlagSet(FLAG_EXP_SHARE);
+        PlaySE(SE_EXP_MAX);
+        if (gTasks[taskId].data[3] == 0) // to account for pressing select in the overworld
+            DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_ExpShareTurnOn, Task_ReturnToBagFromContextMenu);
+        else
+            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ExpShareTurnOn, Task_ItemUse_CloseMessageBoxAndReturnToField);
+    }
+    else
+    {
+        FlagClear(FLAG_EXP_SHARE);
+        PlaySE(SE_PC_OFF);
+        if (gTasks[taskId].data[3] == 0) // to account for pressing select in the overworld
+            DisplayItemMessageInBag(taskId, FONT_NORMAL, gText_ExpShareTurnOn, Task_ReturnToBagFromContextMenu);
+        else
+            DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_ExpShareTurnOn, Task_ItemUse_CloseMessageBoxAndReturnToField);
+    }
+}
+
 void ItemUse_SetQuestLogEvent(u8 eventId, struct Pokemon *pokemon, u16 itemId, u16 param)
 {
     struct QuestLogEvent_Item *data = Alloc(sizeof(*data));
