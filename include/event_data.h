@@ -1,5 +1,6 @@
 #ifndef GUARD_EVENT_DATA_H
 #define GUARD_EVENT_DATA_H
+#define NUM_SOFT_CAPS 9
 
 #include "global.h"
 
@@ -56,3 +57,6 @@ void EnableNationalPokedex_RSE(void);
 void ClearTempFieldEventData(void);
 
 #endif // GUARD_EVENT_DATA_H
+
+extern const u16 sLevelCapFlags[NUM_SOFT_CAPS];
+extern const u16 sLevelCaps[NUM_SOFT_CAPS];
